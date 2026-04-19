@@ -153,9 +153,9 @@
       grid-template-columns: 1.6fr 1fr;
       box-shadow: 0 20px 60px rgba(0,0,0,0.4);
     }
-    .fleet-img-wrap { position: relative; overflow: hidden; min-height: 380px; }
-    .fleet-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
-    .fleet-img-wrap:hover img { transform: scale(1.03); }
+    .fleet-img-wrap { position: relative; overflow: hidden; background: #0d1540; display: flex; align-items: center; justify-content: center; padding: 0.5rem; }
+    .fleet-img-wrap img { width: 100%; height: auto; display: block; transition: transform 0.5s ease; border-radius: 4px; }
+    .fleet-img-wrap:hover img { transform: scale(1.02); }
     .fleet-img-wrap::after { display: none; }
     .fleet-info { padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center; }
     .fleet-badge { display: inline-block; background: var(--red); color: #fff; font-size: 0.68rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; padding: 0.35rem 0.9rem; border-radius: 4px; margin-bottom: 1.2rem; width: fit-content; }
@@ -223,7 +223,7 @@
     @media (max-width: 1024px) {
       .destinations-grid { grid-template-columns: repeat(3,1fr); }
       .fleet-card { grid-template-columns: 1fr; }
-      .fleet-img-wrap { min-height: 260px; }
+      .fleet-img-wrap { padding: 1.5rem; }
       .fleet-img-wrap::after { display: none; }
     }
     @media (max-width: 768px) {
@@ -455,14 +455,14 @@
         <img src="fleet.jpg" alt="Eastern AirLinks Aircraft on runway" />
       </div>
       <div class="fleet-info">
-        <span class="fleet-badge">Active Fleet</span>
+        <span class="fleet-badge">Fleet</span>
         <div class="fleet-name">Embraer E190</div>
         <div class="fleet-sub">Eastern AirLinks Livery</div>
         <p class="fleet-desc">Our flagship regional jet brings modern comfort to Nepal's domestic routes. With its distinctive navy and red livery, the E190 is purpose-built for the short-haul routes we operate — offering a quiet, smooth cabin experience even at lower altitudes across the Terai and Himalayan foothills.</p>
         <div class="fleet-specs">
           <div class="spec-item">
             <div class="spec-label">Capacity</div>
-            <div class="spec-value">98 Seats</div>
+            <div class="spec-value">9 Business / 88 Economy</div>
           </div>
           <div class="spec-item">
             <div class="spec-label">Range</div>
