@@ -1,0 +1,17 @@
+{
+  "name": "eastern-airlinks",
+  "version": "1.0.0",
+  "description": "Eastern AirLinks — Official Airline Website",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "author": "Eastern AirLinks",
+  "license": "ISC"
+}
