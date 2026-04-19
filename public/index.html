@@ -167,6 +167,35 @@
     .spec-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 0.3rem; }
     .spec-value { font-size: 1rem; font-weight: 700; color: #fff; }
 
+    /* ===== CONTACT ===== */
+    .contact-section { background: var(--offwhite); padding: 5.5rem 2rem; }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 4rem; align-items: start; }
+    .contact-info .section-label { display: block; text-align: left; }
+    .contact-info h2 { font-size: 2rem; font-weight: 800; color: var(--navy); letter-spacing: -0.5px; margin-bottom: 1rem; }
+    .contact-info p { color: var(--text-mid); line-height: 1.8; font-size: 0.95rem; margin-bottom: 1.5rem; }
+    .contact-detail { display: flex; align-items: flex-start; gap: 0.9rem; margin-bottom: 1.1rem; }
+    .contact-detail-icon { width: 40px; height: 40px; background: var(--navy); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+    .contact-detail-text strong { display: block; font-size: 0.75rem; font-weight: 700; color: var(--text-mid); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.2rem; }
+    .contact-detail-text span { font-size: 0.9rem; color: var(--text-dark); font-weight: 500; }
+    .contact-form-card { background: #fff; border-radius: 16px; padding: 2.5rem; box-shadow: 0 8px 40px rgba(0,0,0,0.09); }
+    .contact-form-card h3 { font-size: 1.3rem; font-weight: 800; color: var(--navy); margin-bottom: 1.5rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .cf-group { display: flex; flex-direction: column; gap: 0.35rem; margin-bottom: 1rem; }
+    .cf-group label { font-size: 0.72rem; font-weight: 700; color: var(--text-mid); text-transform: uppercase; letter-spacing: 0.8px; }
+    .cf-group input, .cf-group select, .cf-group textarea { border: 2px solid var(--border); border-radius: 7px; padding: 0.72rem 0.9rem; font-family: inherit; font-size: 0.92rem; color: var(--text-dark); outline: none; transition: border-color 0.2s; width: 100%; background: #fff; }
+    .cf-group input:focus, .cf-group select:focus, .cf-group textarea:focus { border-color: var(--navy); }
+    .cf-group textarea { resize: vertical; min-height: 110px; }
+    .btn-submit { width: 100%; background: var(--red); color: #fff; border: none; padding: 0.9rem; border-radius: 7px; font-family: inherit; font-size: 1rem; font-weight: 700; cursor: pointer; transition: background 0.2s; margin-top: 0.5rem; }
+    .btn-submit:hover { background: var(--red-hover); }
+    .form-success { display: none; text-align: center; padding: 2rem; }
+    .form-success .success-icon { font-size: 3rem; margin-bottom: 1rem; }
+    .form-success h4 { font-size: 1.2rem; font-weight: 800; color: var(--navy); margin-bottom: 0.5rem; }
+    .form-success p { color: var(--text-mid); font-size: 0.9rem; }
+    @media (max-width: 768px) {
+      .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+
     /* ===== APP SECTION ===== */
     .app-section { background: var(--navy); padding: 5rem 2rem; }
     .app-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 2rem; }
@@ -283,7 +312,7 @@
         <a href="#fleet">Our Fleet</a>
       </div>
     </li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="#contact">Contact Us</a></li>
   </ul>
 
   <button class="btn-signin" onclick="openModal()">Sign In</button>
@@ -481,6 +510,92 @@
   </div>
 </section>
 
+<!-- ===== CONTACT ===== -->
+<section class="contact-section" id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <span class="section-label">Get In Touch</span>
+        <h2>We're Here to Help</h2>
+        <p>Have a question about a flight, booking, or partnership? Reach out to our team and we'll get back to you as soon as possible.</p>
+
+        <div class="contact-detail">
+          <div class="contact-detail-icon">✉️</div>
+          <div class="contact-detail-text">
+            <strong>Email</strong>
+            <span>info@easternairlinks.com</span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📍</div>
+          <div class="contact-detail-text">
+            <strong>Head Office</strong>
+            <span>Kathmandu, Nepal 44600</span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">✈️</div>
+          <div class="contact-detail-text">
+            <strong>Hub Airport</strong>
+            <span>Gautam Buddha International Airport, Bhairahawa</span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">🕐</div>
+          <div class="contact-detail-text">
+            <strong>Office Hours</strong>
+            <span>Sunday – Friday, 9:00 AM – 6:00 PM NPT</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form-card reveal">
+        <h3>Send Us a Message</h3>
+        <div id="contactForm">
+          <form id="cfForm">
+            <div class="form-row">
+              <div class="cf-group">
+                <label>First Name</label>
+                <input type="text" id="cfFirst" placeholder="John" required />
+              </div>
+              <div class="cf-group">
+                <label>Last Name</label>
+                <input type="text" id="cfLast" placeholder="Doe" required />
+              </div>
+            </div>
+            <div class="cf-group">
+              <label>Email Address</label>
+              <input type="email" id="cfEmail" placeholder="you@example.com" required />
+            </div>
+            <div class="cf-group">
+              <label>Subject</label>
+              <select id="cfSubject">
+                <option value="">— Select a topic —</option>
+                <option>Flight Booking</option>
+                <option>Cancellation &amp; Refund</option>
+                <option>Baggage Enquiry</option>
+                <option>Partnership / Business</option>
+                <option>Careers</option>
+                <option>General Enquiry</option>
+              </select>
+            </div>
+            <div class="cf-group">
+              <label>Message</label>
+              <textarea id="cfMessage" placeholder="How can we help you?" required></textarea>
+            </div>
+            <button type="button" class="btn-submit" onclick="submitContactForm()">Send Message</button>
+          </form>
+        </div>
+        <div class="form-success" id="formSuccess">
+          <div class="success-icon">✅</div>
+          <h4>Message Sent!</h4>
+          <p>Thank you for reaching out. Our team will reply to <strong id="successEmail"></strong> within 24 hours.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ===== APP DOWNLOAD ===== -->
 <section class="app-section">
   <div class="app-inner">
@@ -532,7 +647,7 @@
           <div style="font-size:0.68rem;color:#C0392B;font-style:italic;letter-spacing:1px;">AirLinks</div>
         </div>
       </div>
-      <p class="footer-brand-desc">Connecting Nepal from Bhairahawa (Gautam Buddha International Airport) to destinations across the nation. Safe. Reliable. On time.</p>
+      <p class="footer-brand-desc">Connecting the new Nepal — Fast, Safe &amp; with Reliability.</p>
       <div class="footer-social">
         <a href="#" title="Facebook">𝑓</a>
         <a href="#" title="Instagram">📷</a>
@@ -557,7 +672,7 @@
         <li><a href="#">Manage Booking</a></li>
         <li><a href="#">Check In</a></li>
         <li><a href="#">Flight Status</a></li>
-        <li><a href="#" onclick="showToast('📧 easternaeroparts@gmail.com');return false;">Contact Us</a></li>
+        <li><a href="#contact">Contact Us</a></li>
       </ul>
     </div>
     <div class="footer-col">
@@ -573,7 +688,7 @@
   </div>
   <div class="footer-bottom">
     <span>© 2026 Eastern AirLinks. All rights reserved.</span>
-    <span>Headquartered at Gautam Buddha International Airport, Bhairahawa, Nepal</span>
+    <span>Headquartered at Kathmandu, Nepal 44600 &nbsp;|&nbsp; Hub: Gautam Buddha International Airport, Bhairahawa, Nepal</span>
     <span><a href="#">Privacy</a> · <a href="#">Terms</a> · <a href="#">Sitemap</a></span>
   </div>
 </footer>
@@ -659,6 +774,36 @@
   });
 
   document.addEventListener('keydown', e => { if (e.key==='Escape') closeModal(); });
+
+  // Contact Form
+  function submitContactForm() {
+    var first   = document.getElementById('cfFirst').value.trim();
+    var last    = document.getElementById('cfLast').value.trim();
+    var email   = document.getElementById('cfEmail').value.trim();
+    var subject = document.getElementById('cfSubject').value;
+    var message = document.getElementById('cfMessage').value.trim();
+
+    if (!first || !last || !email || !message) {
+      showToast('⚠️ Please fill in all required fields.'); return;
+    }
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      showToast('⚠️ Please enter a valid email address.'); return;
+    }
+
+    var mailSubject = encodeURIComponent((subject || 'General Enquiry') + ' — Eastern AirLinks Website');
+    var mailBody    = encodeURIComponent(
+      'Name: ' + first + ' ' + last + '\n' +
+      'Email: ' + email + '\n' +
+      'Subject: ' + (subject || 'General Enquiry') + '\n\n' +
+      'Message:\n' + message
+    );
+
+    window.location.href = 'mailto:info@easternairlinks.com?subject=' + mailSubject + '&body=' + mailBody;
+
+    document.getElementById('successEmail').textContent = email;
+    document.getElementById('cfForm').style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
+  }
 
   // Dropdown — stays open while mouse moves to it
   document.querySelectorAll('.nav-dropdown').forEach(function(dropdown) {
