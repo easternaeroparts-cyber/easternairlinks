@@ -5,818 +5,224 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Eastern AirLinks — Connecting Nepal</title>
   <style>
-    /* ===================== RESET & BASE ===================== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --navy:       #1B2A6B;
-      --navy-dark:  #111d4f;
-      --navy-mid:   #243580;
-      --red:        #C0392B;
-      --red-hover:  #d44637;
-      --white:      #ffffff;
-      --offwhite:   #f4f6fb;
-      --text-dark:  #16213e;
-      --text-mid:   #4a547a;
-      --border:     #dde2f0;
+      --navy:      #1B2A6B;
+      --navy-dark: #111d4f;
+      --navy-mid:  #243580;
+      --red:       #C0392B;
+      --red-hover: #d44637;
+      --white:     #ffffff;
+      --offwhite:  #f4f6fb;
+      --text-dark: #16213e;
+      --text-mid:  #4a547a;
+      --border:    #dde2f0;
     }
-
     html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      color: var(--text-dark);
-      overflow-x: hidden;
-      background: var(--white);
-    }
-
+    body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: var(--text-dark); overflow-x: hidden; background: var(--white); }
     a { text-decoration: none; color: inherit; }
     ul { list-style: none; }
     button { cursor: pointer; font-family: inherit; }
 
-    /* ===================== NAVBAR ===================== */
+    /* ===== NAVBAR ===== */
     nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 1000;
-      height: 68px;
-      background: rgba(17, 29, 79, 0.96);
-      backdrop-filter: blur(12px);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 2.5rem;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      height: 68px; background: rgba(17,29,79,0.96); backdrop-filter: blur(12px);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2.5rem; border-bottom: 1px solid rgba(255,255,255,0.08);
     }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 11px;
-    }
-
-    .logo-text {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.1;
-    }
-
-    .logo-text .l-main {
-      font-size: 1.05rem;
-      font-weight: 800;
-      color: #fff;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-    }
-
-    .logo-text .l-sub {
-      font-size: 0.72rem;
-      font-weight: 400;
-      color: var(--red);
-      font-style: italic;
-      letter-spacing: 1.5px;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 2.2rem;
-    }
-
-    .nav-links a {
-      color: rgba(255,255,255,0.8);
-      font-size: 0.82rem;
-      font-weight: 500;
-      letter-spacing: 0.5px;
-      transition: color 0.2s;
-    }
-
+    .logo { display: flex; align-items: center; gap: 11px; }
+    .logo-text { display: flex; flex-direction: column; line-height: 1.1; }
+    .logo-text .l-main { font-size: 1.05rem; font-weight: 800; color: #fff; letter-spacing: 3px; text-transform: uppercase; }
+    .logo-text .l-sub  { font-size: 0.72rem; font-weight: 400; color: var(--red); font-style: italic; letter-spacing: 1.5px; }
+    .nav-links { display: flex; align-items: center; gap: 2.2rem; }
+    .nav-links a { color: rgba(255,255,255,0.8); font-size: 0.82rem; font-weight: 500; letter-spacing: 0.5px; transition: color 0.2s; }
     .nav-links a:hover { color: #fff; }
 
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
+    /* Dropdown */
+    .nav-dropdown { position: relative; }
+    .nav-dropdown > a::after { content: ' ▾'; font-size: 0.65rem; }
+    .dropdown-menu {
+      display: none; position: absolute; top: 100%; left: 0;
+      background: var(--navy-dark); border-radius: 8px; padding: 0.5rem 0;
+      min-width: 150px; box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      margin-top: 0.5rem;
     }
+    .nav-dropdown:hover .dropdown-menu { display: block; }
+    .dropdown-menu a { display: block; padding: 0.55rem 1.2rem; font-size: 0.82rem; color: rgba(255,255,255,0.75); white-space: nowrap; }
+    .dropdown-menu a:hover { background: rgba(255,255,255,0.08); color: #fff; }
 
-    .btn-signin {
-      background: var(--red);
-      color: #fff;
-      border: none;
-      padding: 0.48rem 1.3rem;
-      border-radius: 5px;
-      font-size: 0.82rem;
-      font-weight: 700;
-      letter-spacing: 0.4px;
-      transition: background 0.2s;
-    }
-
+    .btn-signin { background: var(--red); color: #fff; border: none; padding: 0.48rem 1.3rem; border-radius: 5px; font-size: 0.82rem; font-weight: 700; transition: background 0.2s; }
     .btn-signin:hover { background: var(--red-hover); }
 
-    /* ===================== HERO ===================== */
+    /* ===== HERO ===== */
     .hero {
       min-height: 100vh;
       background:
         linear-gradient(to bottom, rgba(17,29,79,0.72) 0%, rgba(17,29,79,0.5) 45%, rgba(17,29,79,0.82) 100%),
-        url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1920&q=80')
-        center / cover no-repeat;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 90px 1.5rem 3rem;
+        url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      text-align: center; padding: 90px 1.5rem 3rem;
     }
-
-    .hero-eyebrow {
-      display: inline-block;
-      background: rgba(192,57,43,0.85);
-      color: #fff;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 2.5px;
-      text-transform: uppercase;
-      padding: 0.35rem 1rem;
-      border-radius: 30px;
-      margin-bottom: 1.2rem;
-    }
-
-    .hero h1 {
-      font-size: clamp(2.6rem, 6vw, 4.8rem);
-      font-weight: 800;
-      color: #fff;
-      letter-spacing: -1.5px;
-      line-height: 1.05;
-      margin-bottom: 1rem;
-      text-shadow: 0 2px 24px rgba(0,0,0,0.35);
-    }
-
+    .hero-eyebrow { display: inline-block; background: rgba(192,57,43,0.85); color: #fff; font-size: 0.7rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; padding: 0.35rem 1rem; border-radius: 30px; margin-bottom: 1.2rem; }
+    .hero h1 { font-size: clamp(2.6rem,6vw,4.8rem); font-weight: 800; color: #fff; letter-spacing: -1.5px; line-height: 1.05; margin-bottom: 1rem; text-shadow: 0 2px 24px rgba(0,0,0,0.35); }
     .hero h1 span { color: var(--red); }
-
-    .hero p {
-      font-size: 1.1rem;
-      color: rgba(255,255,255,0.88);
-      font-weight: 300;
-      letter-spacing: 0.3px;
-      margin-bottom: 2.8rem;
-    }
+    .hero p { font-size: 1.1rem; color: rgba(255,255,255,0.88); font-weight: 300; letter-spacing: 0.3px; margin-bottom: 2.8rem; }
 
     /* Search Card */
-    .search-card {
-      background: #fff;
-      border-radius: 14px;
-      padding: 2rem 2.2rem;
-      width: 100%;
-      max-width: 920px;
-      box-shadow: 0 24px 64px rgba(0,0,0,0.35);
-    }
-
-    .search-card-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 1.5rem;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-    }
-
-    .trip-toggle {
-      display: flex;
-      background: var(--offwhite);
-      border-radius: 6px;
-      padding: 3px;
-      gap: 2px;
-    }
-
-    .trip-toggle button {
-      background: none;
-      border: none;
-      padding: 0.45rem 1.2rem;
-      border-radius: 4px;
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: var(--text-mid);
-      transition: all 0.2s;
-    }
-
-    .trip-toggle button.active {
-      background: var(--navy);
-      color: #fff;
-    }
-
-    .passenger-info {
-      font-size: 0.8rem;
-      color: var(--text-mid);
-    }
-
-    .search-row {
-      display: grid;
-      grid-template-columns: 1.4fr 1.4fr 1fr 1fr auto;
-      gap: 1rem;
-      align-items: end;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
-    }
-
-    .form-group label {
-      font-size: 0.68rem;
-      font-weight: 700;
-      color: var(--text-mid);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .form-group select,
-    .form-group input[type="date"] {
-      border: 2px solid var(--border);
-      border-radius: 7px;
-      padding: 0.72rem 0.9rem;
-      font-family: inherit;
-      font-size: 0.93rem;
-      color: var(--text-dark);
-      background: #fff;
-      outline: none;
-      transition: border-color 0.2s;
-      width: 100%;
-      appearance: none;
-      -webkit-appearance: none;
+    .search-card { background: #fff; border-radius: 14px; padding: 2rem 2.2rem; width: 100%; max-width: 920px; box-shadow: 0 24px 64px rgba(0,0,0,0.35); }
+    .search-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 0.75rem; }
+    .trip-toggle { display: flex; background: var(--offwhite); border-radius: 6px; padding: 3px; gap: 2px; }
+    .trip-toggle button { background: none; border: none; padding: 0.45rem 1.2rem; border-radius: 4px; font-size: 0.82rem; font-weight: 600; color: var(--text-mid); transition: all 0.2s; }
+    .trip-toggle button.active { background: var(--navy); color: #fff; }
+    .passenger-info { font-size: 0.8rem; color: var(--text-mid); }
+    .search-row { display: grid; grid-template-columns: 1.4fr 1.4fr 1fr 1fr auto; gap: 1rem; align-items: end; }
+    .form-group { display: flex; flex-direction: column; gap: 0.35rem; }
+    .form-group label { font-size: 0.68rem; font-weight: 700; color: var(--text-mid); text-transform: uppercase; letter-spacing: 1px; }
+    .form-group select, .form-group input[type="date"] {
+      border: 2px solid var(--border); border-radius: 7px; padding: 0.72rem 0.9rem;
+      font-family: inherit; font-size: 0.93rem; color: var(--text-dark); background: #fff;
+      outline: none; transition: border-color 0.2s; width: 100%; appearance: none; -webkit-appearance: none;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%234a547a' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 0.85rem center;
-      padding-right: 2.2rem;
+      background-repeat: no-repeat; background-position: right 0.85rem center; padding-right: 2.2rem;
     }
-
-    .form-group input[type="date"] {
-      background-image: none;
-      padding-right: 0.9rem;
-    }
-
-    .form-group select:focus,
-    .form-group input:focus {
-      border-color: var(--navy);
-    }
-
-    .btn-search {
-      background: var(--red);
-      color: #fff;
-      border: none;
-      padding: 0.78rem 2rem;
-      border-radius: 7px;
-      font-size: 0.95rem;
-      font-weight: 700;
-      letter-spacing: 0.4px;
-      white-space: nowrap;
-      transition: background 0.2s, transform 0.1s;
-      height: fit-content;
-    }
-
+    .form-group input[type="date"] { background-image: none; padding-right: 0.9rem; }
+    .form-group select:focus, .form-group input:focus { border-color: var(--navy); }
+    .btn-search { background: var(--red); color: #fff; border: none; padding: 0.78rem 2rem; border-radius: 7px; font-size: 0.95rem; font-weight: 700; letter-spacing: 0.4px; white-space: nowrap; transition: background 0.2s, transform 0.1s; height: fit-content; }
     .btn-search:hover { background: var(--red-hover); }
     .btn-search:active { transform: scale(0.98); }
 
-    /* ===================== SECTIONS ===================== */
-    .section {
-      padding: 5.5rem 2rem;
-    }
+    /* ===== SECTIONS ===== */
+    .section { padding: 5.5rem 2rem; }
+    .section-alt { background: var(--offwhite); }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-header { text-align: center; margin-bottom: 3.5rem; }
+    .section-label { display: inline-block; font-size: 0.7rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--red); margin-bottom: 0.65rem; }
+    .section-header h2 { font-size: clamp(1.9rem,4vw,2.6rem); font-weight: 800; color: var(--navy); letter-spacing: -0.5px; margin-bottom: 0.6rem; }
+    .section-header p { color: var(--text-mid); font-size: 0.98rem; }
 
-    .section-alt {
-      background: var(--offwhite);
-    }
+    /* ===== DESTINATIONS ===== */
+    .destinations-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 1.3rem; }
+    .dest-card { border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.09); transition: transform 0.25s, box-shadow 0.25s; background: #fff; }
+    .dest-card:hover { transform: translateY(-7px); box-shadow: 0 16px 48px rgba(0,0,0,0.16); }
+    .dest-img { height: 165px; background-size: cover; background-position: center; position: relative; }
+    .dest-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(17,29,79,0.65) 0%, transparent 55%); }
+    .dest-code { position: absolute; top: 10px; right: 10px; z-index: 1; background: var(--red); color: #fff; font-size: 0.65rem; font-weight: 800; letter-spacing: 1px; padding: 3px 8px; border-radius: 4px; }
+    .dest-city-overlay { position: absolute; bottom: 10px; left: 12px; z-index: 1; color: #fff; font-size: 0.88rem; font-weight: 700; text-shadow: 0 1px 4px rgba(0,0,0,0.4); }
+    .dest-body { padding: 1.1rem 1.2rem 1.3rem; }
+    .dest-route { font-size: 0.68rem; font-weight: 600; color: var(--text-mid); letter-spacing: 0.5px; margin-bottom: 0.7rem; text-transform: uppercase; }
+    .btn-view { display: inline-block; border: 2px solid var(--navy); color: var(--navy); background: none; padding: 0.42rem 1rem; border-radius: 5px; font-size: 0.76rem; font-weight: 700; letter-spacing: 0.5px; transition: all 0.2s; }
+    .btn-view:hover { background: var(--navy); color: #fff; }
 
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .section-header {
-      text-align: center;
-      margin-bottom: 3.5rem;
-    }
-
-    .section-label {
-      display: inline-block;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 2.5px;
-      text-transform: uppercase;
-      color: var(--red);
-      margin-bottom: 0.65rem;
-    }
-
-    .section-header h2 {
-      font-size: clamp(1.9rem, 4vw, 2.6rem);
-      font-weight: 800;
-      color: var(--navy);
-      letter-spacing: -0.5px;
-      margin-bottom: 0.6rem;
-    }
-
-    .section-header p {
-      color: var(--text-mid);
-      font-size: 0.98rem;
-    }
-
-    /* ===================== DESTINATIONS ===================== */
-    .destinations-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 1.3rem;
-    }
-
-    .dest-card {
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.09);
-      transition: transform 0.25s, box-shadow 0.25s;
-      background: #fff;
-    }
-
-    .dest-card:hover {
-      transform: translateY(-7px);
-      box-shadow: 0 16px 48px rgba(0,0,0,0.16);
-    }
-
-    .dest-img {
-      height: 165px;
-      background-size: cover;
-      background-position: center;
-      position: relative;
-    }
-
-    .dest-img::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(17,29,79,0.65) 0%, transparent 55%);
-    }
-
-    .dest-code {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      z-index: 1;
-      background: var(--red);
-      color: #fff;
-      font-size: 0.65rem;
-      font-weight: 800;
-      letter-spacing: 1px;
-      padding: 3px 8px;
-      border-radius: 4px;
-    }
-
-    .dest-city-overlay {
-      position: absolute;
-      bottom: 10px;
-      left: 12px;
-      z-index: 1;
-      color: #fff;
-      font-size: 0.88rem;
-      font-weight: 700;
-      text-shadow: 0 1px 4px rgba(0,0,0,0.4);
-    }
-
-    .dest-body {
-      padding: 1.1rem 1.2rem 1.3rem;
-    }
-
-    .dest-route {
-      font-size: 0.68rem;
-      font-weight: 600;
-      color: var(--text-mid);
-      letter-spacing: 0.5px;
-      margin-bottom: 0.7rem;
-      text-transform: uppercase;
-    }
-
-    .btn-view {
-      display: inline-block;
-      border: 2px solid var(--navy);
-      color: var(--navy);
-      background: none;
-      padding: 0.42rem 1rem;
-      border-radius: 5px;
-      font-size: 0.76rem;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      transition: all 0.2s;
-    }
-
-    .btn-view:hover {
-      background: var(--navy);
-      color: #fff;
-    }
-
-    /* ===================== WHY FLY ===================== */
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
-    }
-
-    .feature-card {
-      background: #fff;
-      border-radius: 14px;
-      padding: 2.5rem 2rem;
-      text-align: center;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.07);
-      border-top: 4px solid var(--navy);
-      transition: transform 0.22s;
-    }
-
+    /* ===== WHY FLY ===== */
+    .features-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem; }
+    .feature-card { background: #fff; border-radius: 14px; padding: 2.5rem 2rem; text-align: center; box-shadow: 0 4px 24px rgba(0,0,0,0.07); border-top: 4px solid var(--navy); transition: transform 0.22s; }
     .feature-card:hover { transform: translateY(-5px); }
+    .feature-icon { width: 64px; height: 64px; background: var(--offwhite); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.2rem; font-size: 1.8rem; }
+    .feature-card h3 { font-size: 1.15rem; font-weight: 800; color: var(--navy); margin-bottom: 0.7rem; }
+    .feature-card p { color: var(--text-mid); font-size: 0.88rem; line-height: 1.75; }
 
-    .feature-icon {
-      width: 64px;
-      height: 64px;
-      background: var(--offwhite);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 1.2rem;
-      font-size: 1.8rem;
-    }
-
-    .feature-card h3 {
-      font-size: 1.15rem;
-      font-weight: 800;
-      color: var(--navy);
-      margin-bottom: 0.7rem;
-    }
-
-    .feature-card p {
-      color: var(--text-mid);
-      font-size: 0.88rem;
-      line-height: 1.75;
-    }
-
-    /* ===================== ABOUT ===================== */
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4.5rem;
-      align-items: center;
-    }
-
+    /* ===== ABOUT ===== */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4.5rem; align-items: center; }
     .about-text .section-label { display: block; text-align: left; }
+    .about-text h2 { font-size: 2.1rem; font-weight: 800; color: var(--navy); letter-spacing: -0.5px; margin-bottom: 1.1rem; }
+    .about-text p { color: var(--text-mid); line-height: 1.85; font-size: 0.95rem; margin-bottom: 0.9rem; }
+    .about-stats { display: flex; gap: 2.5rem; margin-top: 2rem; padding-top: 2rem; border-top: 2px solid var(--border); }
+    .stat-num { display: block; font-size: 2.2rem; font-weight: 800; color: var(--red); line-height: 1; margin-bottom: 0.3rem; }
+    .stat-label { font-size: 0.78rem; font-weight: 600; color: var(--text-mid); letter-spacing: 0.5px; }
+    .about-image { border-radius: 14px; overflow: hidden; height: 400px; background: url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=900&q=80') center/cover no-repeat; box-shadow: 0 24px 64px rgba(0,0,0,0.18); position: relative; }
+    .about-image::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(27,42,107,0.3) 0%, transparent 60%); }
 
-    .about-text h2 {
-      font-size: 2.1rem;
-      font-weight: 800;
-      color: var(--navy);
-      letter-spacing: -0.5px;
-      margin-bottom: 1.1rem;
-    }
-
-    .about-text p {
-      color: var(--text-mid);
-      line-height: 1.85;
-      font-size: 0.95rem;
-      margin-bottom: 0.9rem;
-    }
-
-    .about-stats {
-      display: flex;
-      gap: 2.5rem;
-      margin-top: 2rem;
-      padding-top: 2rem;
-      border-top: 2px solid var(--border);
-    }
-
-    .stat-num {
-      display: block;
-      font-size: 2.2rem;
-      font-weight: 800;
-      color: var(--red);
-      line-height: 1;
-      margin-bottom: 0.3rem;
-    }
-
-    .stat-label {
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: var(--text-mid);
-      letter-spacing: 0.5px;
-    }
-
-    .about-image {
-      border-radius: 14px;
+    /* ===== FLEET ===== */
+    .fleet-section { background: var(--navy-dark); padding: 5.5rem 2rem; }
+    .fleet-section .section-label { color: #C0392B; }
+    .fleet-section .section-header h2 { color: #fff; }
+    .fleet-section .section-header p { color: rgba(255,255,255,0.65); }
+    .fleet-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
       overflow: hidden;
-      height: 400px;
-      background:
-        url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=900&q=80')
-        center / cover no-repeat;
-      box-shadow: 0 24px 64px rgba(0,0,0,0.18);
-      position: relative;
-    }
-
-    .about-image::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(27,42,107,0.3) 0%, transparent 60%);
-    }
-
-    /* ===================== APP SECTION ===================== */
-    .app-section {
-      background: var(--navy);
-      padding: 5rem 2rem;
-    }
-
-    .app-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 2rem;
-    }
-
-    .app-text h2 {
-      font-size: 2rem;
-      font-weight: 800;
-      color: #fff;
-      margin-bottom: 0.75rem;
-      letter-spacing: -0.5px;
-    }
-
-    .app-text p {
-      color: rgba(255,255,255,0.72);
-      font-size: 0.97rem;
-      line-height: 1.75;
-      max-width: 460px;
-      margin-bottom: 1.8rem;
-    }
-
-    .app-badges {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.7rem;
-      background: rgba(255,255,255,0.1);
-      border: 1.5px solid rgba(255,255,255,0.25);
-      color: #fff;
-      padding: 0.7rem 1.4rem;
-      border-radius: 9px;
-      transition: background 0.2s;
-    }
-
-    .badge:hover { background: rgba(255,255,255,0.18); }
-
-    .badge-icon { font-size: 1.6rem; }
-
-    .badge-text small {
-      display: block;
-      font-size: 0.62rem;
-      opacity: 0.75;
-      letter-spacing: 0.3px;
-    }
-
-    .badge-text strong {
-      display: block;
-      font-size: 0.9rem;
-      font-weight: 700;
-    }
-
-    .app-graphic {
-      font-size: 9rem;
-      opacity: 0.12;
-      user-select: none;
-    }
-
-    /* ===================== FOOTER ===================== */
-    footer {
-      background: var(--navy-dark);
-      color: rgba(255,255,255,0.65);
-      padding: 4rem 2rem 2.5rem;
-    }
-
-    .footer-grid {
       display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 3rem;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding-bottom: 3rem;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
+      grid-template-columns: 1.6fr 1fr;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
     }
+    .fleet-img-wrap { position: relative; overflow: hidden; min-height: 380px; }
+    .fleet-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
+    .fleet-img-wrap:hover img { transform: scale(1.03); }
+    .fleet-img-wrap::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, transparent 60%, var(--navy-dark)); }
+    .fleet-info { padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center; }
+    .fleet-badge { display: inline-block; background: var(--red); color: #fff; font-size: 0.68rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; padding: 0.35rem 0.9rem; border-radius: 4px; margin-bottom: 1.2rem; width: fit-content; }
+    .fleet-name { font-size: 2rem; font-weight: 800; color: #fff; letter-spacing: -0.5px; margin-bottom: 0.4rem; }
+    .fleet-sub { font-size: 1rem; color: var(--red); font-weight: 600; margin-bottom: 1.5rem; }
+    .fleet-desc { color: rgba(255,255,255,0.7); font-size: 0.92rem; line-height: 1.8; margin-bottom: 2rem; }
+    .fleet-specs { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .spec-item { background: rgba(255,255,255,0.06); border-radius: 8px; padding: 0.85rem 1rem; }
+    .spec-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 0.3rem; }
+    .spec-value { font-size: 1rem; font-weight: 700; color: #fff; }
 
-    .footer-brand-desc {
-      font-size: 0.85rem;
-      line-height: 1.75;
-      margin-top: 1.1rem;
-      max-width: 260px;
-    }
+    /* ===== APP SECTION ===== */
+    .app-section { background: var(--navy); padding: 5rem 2rem; }
+    .app-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 2rem; }
+    .app-text h2 { font-size: 2rem; font-weight: 800; color: #fff; margin-bottom: 0.75rem; letter-spacing: -0.5px; }
+    .app-text p { color: rgba(255,255,255,0.72); font-size: 0.97rem; line-height: 1.75; max-width: 460px; margin-bottom: 1.8rem; }
+    .app-badges { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .badge { display: inline-flex; align-items: center; gap: 0.7rem; background: rgba(255,255,255,0.1); border: 1.5px solid rgba(255,255,255,0.25); color: #fff; padding: 0.7rem 1.4rem; border-radius: 9px; transition: background 0.2s; }
+    .badge:hover { background: rgba(255,255,255,0.18); }
+    .badge-icon { font-size: 1.6rem; }
+    .badge-text small { display: block; font-size: 0.62rem; opacity: 0.75; }
+    .badge-text strong { display: block; font-size: 0.9rem; font-weight: 700; }
+    .app-graphic { font-size: 9rem; opacity: 0.12; user-select: none; }
 
-    .footer-social {
-      display: flex;
-      gap: 0.8rem;
-      margin-top: 1.4rem;
-    }
-
-    .footer-social a {
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.08);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.85rem;
-      transition: background 0.2s;
-    }
-
+    /* ===== FOOTER ===== */
+    footer { background: var(--navy-dark); color: rgba(255,255,255,0.65); padding: 4rem 2rem 2.5rem; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; max-width: 1100px; margin: 0 auto; padding-bottom: 3rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .footer-brand-desc { font-size: 0.85rem; line-height: 1.75; margin-top: 1.1rem; max-width: 260px; }
+    .footer-social { display: flex; gap: 0.8rem; margin-top: 1.4rem; }
+    .footer-social a { width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; transition: background 0.2s; }
     .footer-social a:hover { background: var(--red); color: #fff; }
-
-    .footer-col h4 {
-      color: #fff;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      margin-bottom: 1.3rem;
-    }
-
+    .footer-col h4 { color: #fff; font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 1.3rem; }
     .footer-col ul li { margin-bottom: 0.65rem; }
-
-    .footer-col ul li a {
-      font-size: 0.84rem;
-      color: rgba(255,255,255,0.58);
-      transition: color 0.2s;
-    }
-
+    .footer-col ul li a { font-size: 0.84rem; color: rgba(255,255,255,0.58); transition: color 0.2s; }
     .footer-col ul li a:hover { color: #fff; }
-
-    .footer-bottom {
-      max-width: 1100px;
-      margin: 2.2rem auto 0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.78rem;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-
+    .footer-bottom { max-width: 1100px; margin: 2.2rem auto 0; display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem; flex-wrap: wrap; gap: 0.5rem; }
     .footer-bottom a { color: rgba(255,255,255,0.5); transition: color 0.2s; }
     .footer-bottom a:hover { color: #fff; }
 
-    /* ===================== MODAL ===================== */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.55);
-      z-index: 2000;
-      justify-content: center;
-      align-items: center;
-      padding: 1rem;
-    }
-
+    /* ===== MODAL ===== */
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 2000; justify-content: center; align-items: center; padding: 1rem; }
     .modal-overlay.open { display: flex; }
-
-    .modal {
-      background: #fff;
-      border-radius: 14px;
-      padding: 2.5rem;
-      max-width: 420px;
-      width: 100%;
-      box-shadow: 0 24px 80px rgba(0,0,0,0.3);
-      position: relative;
-    }
-
-    .modal-close-btn {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      background: var(--offwhite);
-      border: none;
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      font-size: 1rem;
-      color: var(--text-mid);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.2s;
-    }
-
+    .modal { background: #fff; border-radius: 14px; padding: 2.5rem; max-width: 420px; width: 100%; box-shadow: 0 24px 80px rgba(0,0,0,0.3); position: relative; }
+    .modal-close-btn { position: absolute; top: 1rem; right: 1rem; background: var(--offwhite); border: none; width: 30px; height: 30px; border-radius: 50%; font-size: 1rem; color: var(--text-mid); display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
     .modal-close-btn:hover { background: var(--border); }
-
     .modal-icon { font-size: 2.5rem; margin-bottom: 0.8rem; }
-
-    .modal h3 {
-      font-size: 1.35rem;
-      font-weight: 800;
-      color: var(--navy);
-      margin-bottom: 0.5rem;
-    }
-
-    .modal p {
-      color: var(--text-mid);
-      font-size: 0.92rem;
-      line-height: 1.7;
-      margin-bottom: 1.5rem;
-    }
-
-    .modal-input {
-      width: 100%;
-      border: 2px solid var(--border);
-      border-radius: 7px;
-      padding: 0.75rem 1rem;
-      font-family: inherit;
-      font-size: 0.93rem;
-      outline: none;
-      margin-bottom: 0.8rem;
-      transition: border-color 0.2s;
-    }
-
+    .modal h3 { font-size: 1.35rem; font-weight: 800; color: var(--navy); margin-bottom: 0.5rem; }
+    .modal p { color: var(--text-mid); font-size: 0.92rem; line-height: 1.7; margin-bottom: 1.5rem; }
+    .modal-input { width: 100%; border: 2px solid var(--border); border-radius: 7px; padding: 0.75rem 1rem; font-family: inherit; font-size: 0.93rem; outline: none; margin-bottom: 0.8rem; transition: border-color 0.2s; }
     .modal-input:focus { border-color: var(--navy); }
-
-    .modal-btn {
-      width: 100%;
-      background: var(--navy);
-      color: #fff;
-      border: none;
-      padding: 0.85rem;
-      border-radius: 7px;
-      font-size: 0.95rem;
-      font-weight: 700;
-      transition: background 0.2s;
-      margin-top: 0.4rem;
-    }
-
+    .modal-btn { width: 100%; background: var(--navy); color: #fff; border: none; padding: 0.85rem; border-radius: 7px; font-size: 0.95rem; font-weight: 700; transition: background 0.2s; margin-top: 0.4rem; }
     .modal-btn:hover { background: var(--navy-mid); }
+    .modal-switch { text-align: center; margin-top: 1rem; font-size: 0.83rem; color: var(--text-mid); }
+    .modal-switch a { color: var(--red); font-weight: 600; cursor: pointer; }
 
-    .modal-switch {
-      text-align: center;
-      margin-top: 1rem;
-      font-size: 0.83rem;
-      color: var(--text-mid);
-    }
+    /* ===== TOAST ===== */
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: var(--navy); color: #fff; padding: 1rem 1.5rem; border-radius: 10px; font-size: 0.9rem; font-weight: 500; box-shadow: 0 8px 32px rgba(0,0,0,0.2); transform: translateY(100px); opacity: 0; transition: all 0.35s cubic-bezier(0.34,1.56,0.64,1); z-index: 3000; max-width: 340px; display: flex; align-items: center; gap: 0.7rem; }
+    .toast.show { transform: translateY(0); opacity: 1; }
 
-    .modal-switch a {
-      color: var(--red);
-      font-weight: 600;
-      cursor: pointer;
-    }
+    /* ===== SCROLL REVEAL ===== */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
 
-    /* ===================== TOAST ===================== */
-    .toast {
-      position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      background: var(--navy);
-      color: #fff;
-      padding: 1rem 1.5rem;
-      border-radius: 10px;
-      font-size: 0.9rem;
-      font-weight: 500;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-      transform: translateY(100px);
-      opacity: 0;
-      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-      z-index: 3000;
-      max-width: 340px;
-      display: flex;
-      align-items: center;
-      gap: 0.7rem;
-    }
-
-    .toast.show {
-      transform: translateY(0);
-      opacity: 1;
-    }
-
-    /* ===================== SCROLL REVEAL ===================== */
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* ===================== RESPONSIVE ===================== */
+    /* ===== RESPONSIVE ===== */
     @media (max-width: 1024px) {
-      .destinations-grid { grid-template-columns: repeat(3, 1fr); }
+      .destinations-grid { grid-template-columns: repeat(3,1fr); }
+      .fleet-card { grid-template-columns: 1fr; }
+      .fleet-img-wrap { min-height: 260px; }
+      .fleet-img-wrap::after { background: linear-gradient(to top, var(--navy-dark), transparent); }
     }
-
     @media (max-width: 768px) {
       .search-row { grid-template-columns: 1fr 1fr; }
-      .btn-search { grid-column: 1 / -1; padding: 0.9rem; font-size: 1rem; }
+      .btn-search { grid-column: 1/-1; padding: 0.9rem; font-size: 1rem; }
       .features-grid { grid-template-columns: 1fr; }
       .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
       .about-image { height: 260px; }
@@ -826,24 +232,25 @@
       .app-badges { justify-content: center; }
       .app-graphic { display: none; }
       .nav-links { display: none; }
-      .destinations-grid { grid-template-columns: repeat(2, 1fr); }
+      .destinations-grid { grid-template-columns: repeat(2,1fr); }
+      .fleet-specs { grid-template-columns: 1fr 1fr; }
     }
-
     @media (max-width: 480px) {
       .search-row { grid-template-columns: 1fr; }
       .destinations-grid { grid-template-columns: 1fr; }
       .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
       .about-stats { flex-wrap: wrap; gap: 1.5rem; }
       .footer-bottom { flex-direction: column; text-align: center; }
+      .fleet-info { padding: 2rem 1.5rem; }
+      .fleet-specs { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-<!-- ===================== NAVBAR ===================== -->
+<!-- ===== NAVBAR ===== -->
 <nav id="navbar">
   <a href="#" class="logo">
-    <!-- Compass Star SVG Logo -->
     <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
       <polygon points="22,2 42,22 22,42 2,22" fill="#1B2A6B"/>
       <polygon points="22,2 42,22 22,22" fill="#C0392B"/>
@@ -863,16 +270,20 @@
     <li><a href="#book">Book</a></li>
     <li><a href="#destinations">Destinations</a></li>
     <li><a href="#why-fly">Why Us</a></li>
-    <li><a href="#about">About</a></li>
+    <li class="nav-dropdown">
+      <a href="#about">About</a>
+      <div class="dropdown-menu">
+        <a href="#about">About Us</a>
+        <a href="#fleet">Our Fleet</a>
+      </div>
+    </li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 
-  <div class="nav-right">
-    <button class="btn-signin" onclick="openModal()">Sign In</button>
-  </div>
+  <button class="btn-signin" onclick="openModal()">Sign In</button>
 </nav>
 
-<!-- ===================== HERO ===================== -->
+<!-- ===== HERO ===== -->
 <section class="hero" id="book">
   <span class="hero-eyebrow">✈ Nepal's Regional Carrier</span>
   <h1>Fly with <span>Eastern</span><br>AirLinks</h1>
@@ -886,7 +297,6 @@
       </div>
       <span class="passenger-info">Book direct flights across Nepal</span>
     </div>
-
     <div class="search-row">
       <div class="form-group">
         <label>From</label>
@@ -899,7 +309,6 @@
           <option value="DHI">Dhangadhi (DHI)</option>
         </select>
       </div>
-
       <div class="form-group">
         <label>To</label>
         <select id="toCity">
@@ -912,17 +321,14 @@
           <option value="BWA">Bhairahawa (BWA)</option>
         </select>
       </div>
-
       <div class="form-group">
         <label>Departure</label>
         <input type="date" id="departDate" />
       </div>
-
       <div class="form-group" id="returnGroup" style="display:none;">
         <label>Return</label>
         <input type="date" id="returnDate" />
       </div>
-
       <div class="form-group">
         <label>Passengers</label>
         <select id="passengers">
@@ -933,13 +339,12 @@
           <option value="5">5 Adults</option>
         </select>
       </div>
-
       <button class="btn-search" onclick="findFlights()">Find Flights</button>
     </div>
   </div>
 </section>
 
-<!-- ===================== DESTINATIONS ===================== -->
+<!-- ===== DESTINATIONS ===== -->
 <section class="section" id="destinations">
   <div class="container">
     <div class="section-header reveal">
@@ -947,74 +352,42 @@
       <h2>Where We Fly</h2>
       <p>Direct routes from Bhairahawa (Gautam Buddha Int'l) to Nepal's key cities</p>
     </div>
-
     <div class="destinations-grid">
-
-      <!-- Kathmandu -->
       <div class="dest-card reveal">
-        <div class="dest-img" style="background-image: url('https://images.unsplash.com/photo-1605640840605-14ac1855827b?auto=format&fit=crop&w=600&q=80'); background-color: #2c3e6e;">
-          <span class="dest-code">KTM</span>
-          <span class="dest-city-overlay">Kathmandu</span>
+        <div class="dest-img" style="background-image:url('https://images.unsplash.com/photo-1605640840605-14ac1855827b?auto=format&fit=crop&w=600&q=80');background-color:#2c3e6e;">
+          <span class="dest-code">KTM</span><span class="dest-city-overlay">Kathmandu</span>
         </div>
-        <div class="dest-body">
-          <div class="dest-route">BWA → KTM</div>
-          <button class="btn-view" onclick="bookRoute('Kathmandu')">View Flights</button>
-        </div>
+        <div class="dest-body"><div class="dest-route">BWA → KTM</div><button class="btn-view" onclick="bookRoute('Kathmandu')">View Flights</button></div>
       </div>
-
-      <!-- Pokhara -->
       <div class="dest-card reveal">
-        <div class="dest-img" style="background-image: url('https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=600&q=80'); background-color: #1a4060;">
-          <span class="dest-code">PKR</span>
-          <span class="dest-city-overlay">Pokhara</span>
+        <div class="dest-img" style="background-image:url('https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=600&q=80');background-color:#1a4060;">
+          <span class="dest-code">PKR</span><span class="dest-city-overlay">Pokhara</span>
         </div>
-        <div class="dest-body">
-          <div class="dest-route">BWA → PKR</div>
-          <button class="btn-view" onclick="bookRoute('Pokhara')">View Flights</button>
-        </div>
+        <div class="dest-body"><div class="dest-route">BWA → PKR</div><button class="btn-view" onclick="bookRoute('Pokhara')">View Flights</button></div>
       </div>
-
-      <!-- Biratnagar -->
       <div class="dest-card reveal">
-        <div class="dest-img" style="background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=600&q=80'); background-color: #2d4a2a;">
-          <span class="dest-code">BIR</span>
-          <span class="dest-city-overlay">Biratnagar</span>
+        <div class="dest-img" style="background-image:url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=600&q=80');background-color:#2d4a2a;">
+          <span class="dest-code">BIR</span><span class="dest-city-overlay">Biratnagar</span>
         </div>
-        <div class="dest-body">
-          <div class="dest-route">BWA → BIR</div>
-          <button class="btn-view" onclick="bookRoute('Biratnagar')">View Flights</button>
-        </div>
+        <div class="dest-body"><div class="dest-route">BWA → BIR</div><button class="btn-view" onclick="bookRoute('Biratnagar')">View Flights</button></div>
       </div>
-
-      <!-- Nepalgunj -->
       <div class="dest-card reveal">
-        <div class="dest-img" style="background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=600&q=80'); background-color: #4a3a1a;">
-          <span class="dest-code">KEP</span>
-          <span class="dest-city-overlay">Nepalgunj</span>
+        <div class="dest-img" style="background-image:url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=600&q=80');background-color:#4a3a1a;">
+          <span class="dest-code">KEP</span><span class="dest-city-overlay">Nepalgunj</span>
         </div>
-        <div class="dest-body">
-          <div class="dest-route">BWA → KEP</div>
-          <button class="btn-view" onclick="bookRoute('Nepalgunj')">View Flights</button>
-        </div>
+        <div class="dest-body"><div class="dest-route">BWA → KEP</div><button class="btn-view" onclick="bookRoute('Nepalgunj')">View Flights</button></div>
       </div>
-
-      <!-- Dhangadhi -->
       <div class="dest-card reveal">
-        <div class="dest-img" style="background-image: url('https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=600&q=80'); background-color: #3a2a4a;">
-          <span class="dest-code">DHI</span>
-          <span class="dest-city-overlay">Dhangadhi</span>
+        <div class="dest-img" style="background-image:url('https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=600&q=80');background-color:#3a2a4a;">
+          <span class="dest-code">DHI</span><span class="dest-city-overlay">Dhangadhi</span>
         </div>
-        <div class="dest-body">
-          <div class="dest-route">BWA → DHI</div>
-          <button class="btn-view" onclick="bookRoute('Dhangadhi')">View Flights</button>
-        </div>
+        <div class="dest-body"><div class="dest-route">BWA → DHI</div><button class="btn-view" onclick="bookRoute('Dhangadhi')">View Flights</button></div>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- ===================== WHY FLY ===================== -->
+<!-- ===== WHY FLY ===== -->
 <section class="section section-alt" id="why-fly">
   <div class="container">
     <div class="section-header reveal">
@@ -1022,20 +395,17 @@
       <h2>The Eastern AirLinks Difference</h2>
       <p>Built for Nepal. Designed for you.</p>
     </div>
-
     <div class="features-grid">
       <div class="feature-card reveal">
         <div class="feature-icon">🛡️</div>
         <h3>Safety First</h3>
         <p>Our fleet undergoes rigorous maintenance checks before every flight. We comply with all CAAN safety regulations and never compromise on airworthiness standards.</p>
       </div>
-
       <div class="feature-card reveal">
         <div class="feature-icon">💺</div>
         <h3>Comfort On Board</h3>
         <p>Enjoy spacious, modern cabin seating with complimentary refreshments. Every seat is designed for a smooth, comfortable journey across Nepal's varied terrain.</p>
       </div>
-
       <div class="feature-card reveal">
         <div class="feature-icon">⏱️</div>
         <h3>Always On Time</h3>
@@ -1045,61 +415,81 @@
   </div>
 </section>
 
-<!-- ===================== ABOUT ===================== -->
+<!-- ===== ABOUT ===== -->
 <section class="section" id="about">
   <div class="container">
     <div class="about-grid">
       <div class="about-text reveal">
         <span class="section-label">About Us</span>
         <h2>Connecting Nepal,<br>One Flight at a Time</h2>
-        <p>Eastern AirLinks is a regional carrier headquartered at Gautam Buddha International Airport in Bhairahawa. Our mission is to make air travel accessible, reliable, and affordable for communities across Nepal — from the fertile Terai plains to the gateway of the Himalayas.</p>
+        <p>Eastern AirLinks is a regional carrier headquartered at Gautam Buddha International Airport in Bhairahawa. Our mission is to make air travel accessible, reliable, and affordable for communities across Nepal.</p>
         <p>We believe every Nepali deserves fast, safe connectivity between cities. Whether you're traveling for business, family, or adventure, Eastern AirLinks is your trusted partner in the skies.</p>
-
         <div class="about-stats">
-          <div>
-            <span class="stat-num">5</span>
-            <span class="stat-label">Destinations</span>
-          </div>
-          <div>
-            <span class="stat-num">6</span>
-            <span class="stat-label">Daily Flights</span>
-          </div>
-          <div>
-            <span class="stat-num">100%</span>
-            <span class="stat-label">Nepal-Focused</span>
-          </div>
-          <div>
-            <span class="stat-num">24/7</span>
-            <span class="stat-label">Support</span>
-          </div>
+          <div><span class="stat-num">5</span><span class="stat-label">Destinations</span></div>
+          <div><span class="stat-num">6</span><span class="stat-label">Daily Flights</span></div>
+          <div><span class="stat-num">100%</span><span class="stat-label">Nepal-Focused</span></div>
+          <div><span class="stat-num">24/7</span><span class="stat-label">Support</span></div>
         </div>
       </div>
-
       <div class="about-image reveal"></div>
     </div>
   </div>
 </section>
 
-<!-- ===================== APP DOWNLOAD ===================== -->
+<!-- ===== FLEET ===== -->
+<section class="fleet-section" id="fleet">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">Our Fleet</span>
+      <h2>Modern Aircraft for Nepal's Skies</h2>
+      <p>Purpose-built regional jets designed for short-haul comfort and mountain-terrain performance</p>
+    </div>
+    <div class="fleet-card reveal">
+      <div class="fleet-img-wrap">
+        <img src="images/fleet.jpg" alt="Eastern AirLinks Aircraft on runway" />
+      </div>
+      <div class="fleet-info">
+        <span class="fleet-badge">Active Fleet</span>
+        <div class="fleet-name">Embraer E190</div>
+        <div class="fleet-sub">Eastern AirLinks Livery</div>
+        <p class="fleet-desc">Our flagship regional jet brings modern comfort to Nepal's domestic routes. With its distinctive navy and red livery, the E190 is purpose-built for the short-haul routes we operate — offering a quiet, smooth cabin experience even at lower altitudes across the Terai and Himalayan foothills.</p>
+        <div class="fleet-specs">
+          <div class="spec-item">
+            <div class="spec-label">Capacity</div>
+            <div class="spec-value">98 Seats</div>
+          </div>
+          <div class="spec-item">
+            <div class="spec-label">Range</div>
+            <div class="spec-value">4,537 km</div>
+          </div>
+          <div class="spec-item">
+            <div class="spec-label">Cruise Speed</div>
+            <div class="spec-value">870 km/h</div>
+          </div>
+          <div class="spec-item">
+            <div class="spec-label">Engine</div>
+            <div class="spec-value">GE CF34-10E</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== APP DOWNLOAD ===== -->
 <section class="app-section">
   <div class="app-inner">
     <div class="app-text reveal">
       <h2>Your Journey in Your Pocket</h2>
       <p>Download the Eastern AirLinks app to check in, track your flight status in real time, manage your bookings, and get instant notifications — all from your phone.</p>
       <div class="app-badges">
-        <a href="#" class="badge" onclick="showToast('🍎 App Store coming soon!'); return false;">
+        <a href="#" class="badge" onclick="showToast('🍎 App Store coming soon!');return false;">
           <span class="badge-icon">🍎</span>
-          <div class="badge-text">
-            <small>Download on the</small>
-            <strong>App Store</strong>
-          </div>
+          <div class="badge-text"><small>Download on the</small><strong>App Store</strong></div>
         </a>
-        <a href="#" class="badge" onclick="showToast('🤖 Google Play coming soon!'); return false;">
+        <a href="#" class="badge" onclick="showToast('🤖 Google Play coming soon!');return false;">
           <span class="badge-icon">🤖</span>
-          <div class="badge-text">
-            <small>Get it on</small>
-            <strong>Google Play</strong>
-          </div>
+          <div class="badge-text"><small>Get it on</small><strong>Google Play</strong></div>
         </a>
       </div>
     </div>
@@ -1107,13 +497,12 @@
   </div>
 </section>
 
-<!-- ===================== FOOTER ===================== -->
+<!-- ===== FOOTER ===== -->
 <footer id="contact">
   <div class="footer-grid">
     <div>
-      <!-- Logo repeat -->
-      <div style="display:flex; align-items:center; gap:10px;">
-        <svg width="38" height="38" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <svg width="38" height="38" viewBox="0 0 44 44" fill="none">
           <polygon points="22,2 42,22 22,42 2,22" fill="#1B2A6B"/>
           <polygon points="22,2 42,22 22,22" fill="#C0392B"/>
           <polygon points="42,22 22,42 22,22" fill="#9b2418"/>
@@ -1123,8 +512,8 @@
           <polygon points="5,22 19,19 22,22 19,25" fill="white"/>
         </svg>
         <div>
-          <div style="font-size:0.95rem; font-weight:800; color:#fff; letter-spacing:2px; text-transform:uppercase;">Eastern</div>
-          <div style="font-size:0.68rem; color:#C0392B; font-style:italic; letter-spacing:1px;">AirLinks</div>
+          <div style="font-size:0.95rem;font-weight:800;color:#fff;letter-spacing:2px;text-transform:uppercase;">Eastern</div>
+          <div style="font-size:0.68rem;color:#C0392B;font-style:italic;letter-spacing:1px;">AirLinks</div>
         </div>
       </div>
       <p class="footer-brand-desc">Connecting Nepal from Bhairahawa (Gautam Buddha International Airport) to destinations across the nation. Safe. Reliable. On time.</p>
@@ -1135,18 +524,16 @@
         <a href="#" title="YouTube">▶</a>
       </div>
     </div>
-
     <div class="footer-col">
       <h4>Company</h4>
       <ul>
         <li><a href="#about">About Us</a></li>
+        <li><a href="#fleet">Our Fleet</a></li>
         <li><a href="#">Careers</a></li>
         <li><a href="#">News &amp; Press</a></li>
-        <li><a href="#">Investor Relations</a></li>
         <li><a href="#">Sustainability</a></li>
       </ul>
     </div>
-
     <div class="footer-col">
       <h4>Support</h4>
       <ul>
@@ -1154,10 +541,9 @@
         <li><a href="#">Manage Booking</a></li>
         <li><a href="#">Check In</a></li>
         <li><a href="#">Flight Status</a></li>
-        <li><a href="#" onclick="showToast('📧 easternaeroparts@gmail.com'); return false;">Contact Us</a></li>
+        <li><a href="#" onclick="showToast('📧 easternaeroparts@gmail.com');return false;">Contact Us</a></li>
       </ul>
     </div>
-
     <div class="footer-col">
       <h4>Policies</h4>
       <ul>
@@ -1169,7 +555,6 @@
       </ul>
     </div>
   </div>
-
   <div class="footer-bottom">
     <span>© 2026 Eastern AirLinks. All rights reserved.</span>
     <span>Headquartered at Gautam Buddha International Airport, Bhairahawa, Nepal</span>
@@ -1177,7 +562,7 @@
   </div>
 </footer>
 
-<!-- ===================== SIGN IN MODAL ===================== -->
+<!-- ===== SIGN IN MODAL ===== -->
 <div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
   <div class="modal">
     <button class="modal-close-btn" onclick="closeModal()">✕</button>
@@ -1191,141 +576,73 @@
   </div>
 </div>
 
-<!-- ===================== TOAST ===================== -->
-<div class="toast" id="toast">
-  <span id="toastMsg"></span>
-</div>
+<!-- ===== TOAST ===== -->
+<div class="toast" id="toast"><span id="toastMsg"></span></div>
 
-<!-- ===================== JAVASCRIPT ===================== -->
+<!-- ===== JAVASCRIPT ===== -->
 <script>
-  // ---------- SET MINIMUM DATE ----------
   const today = new Date().toISOString().split('T')[0];
   document.getElementById('departDate').min = today;
   document.getElementById('departDate').value = today;
   document.getElementById('returnDate').min = today;
 
-  // ---------- TRIP TYPE TOGGLE ----------
   function setTrip(type) {
-    const returnGroup = document.getElementById('returnGroup');
-    const btnOne = document.getElementById('btnOneWay');
-    const btnRound = document.getElementById('btnRoundTrip');
-
-    if (type === 'round-trip') {
-      returnGroup.style.display = 'flex';
-      btnRound.classList.add('active');
-      btnOne.classList.remove('active');
-    } else {
-      returnGroup.style.display = 'none';
-      btnOne.classList.add('active');
-      btnRound.classList.remove('active');
-    }
+    const rg = document.getElementById('returnGroup');
+    const b1 = document.getElementById('btnOneWay');
+    const b2 = document.getElementById('btnRoundTrip');
+    if (type === 'round-trip') { rg.style.display='flex'; b2.classList.add('active'); b1.classList.remove('active'); }
+    else { rg.style.display='none'; b1.classList.add('active'); b2.classList.remove('active'); }
   }
 
-  // ---------- FIND FLIGHTS ----------
   function findFlights() {
     const from = document.getElementById('fromCity').value;
-    const to = document.getElementById('toCity').value;
-    const depart = document.getElementById('departDate').value;
-    const passengers = document.getElementById('passengers').value;
-
-    if (!to) {
-      showToast('⚠️ Please select a destination.');
-      return;
-    }
-    if (from === to) {
-      showToast('⚠️ Origin and destination cannot be the same.');
-      return;
-    }
-    if (!depart) {
-      showToast('⚠️ Please select a departure date.');
-      return;
-    }
-
-    const fromNames = { BWA:'Bhairahawa', KTM:'Kathmandu', BIR:'Biratnagar', PKR:'Pokhara', KEP:'Nepalgunj', DHI:'Dhangadhi' };
-    showToast(`🔍 Searching flights: ${fromNames[from]} → ${fromNames[to]} · ${passengers} pax · ${formatDate(depart)}`);
+    const to   = document.getElementById('toCity').value;
+    const dep  = document.getElementById('departDate').value;
+    const pax  = document.getElementById('passengers').value;
+    if (!to) { showToast('⚠️ Please select a destination.'); return; }
+    if (from === to) { showToast('⚠️ Origin and destination cannot be the same.'); return; }
+    const names = {BWA:'Bhairahawa',KTM:'Kathmandu',BIR:'Biratnagar',PKR:'Pokhara',KEP:'Nepalgunj',DHI:'Dhangadhi'};
+    showToast(`🔍 Searching: ${names[from]} → ${names[to]} · ${pax} pax`);
   }
 
-  function formatDate(dateStr) {
-    const d = new Date(dateStr + 'T00:00:00');
-    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-  }
-
-  // ---------- BOOK ROUTE (from destination cards) ----------
   function bookRoute(city) {
-    document.getElementById('toCity').value = getCityCode(city);
-    document.getElementById('book').scrollIntoView({ behavior: 'smooth' });
-    setTimeout(() => showToast(`✈️ Route to ${city} selected! Choose your date.`), 600);
+    const map = {Kathmandu:'KTM',Pokhara:'PKR',Biratnagar:'BIR',Nepalgunj:'KEP',Dhangadhi:'DHI'};
+    document.getElementById('toCity').value = map[city] || '';
+    document.getElementById('book').scrollIntoView({behavior:'smooth'});
+    setTimeout(() => showToast(`✈️ Route to ${city} selected!`), 600);
   }
 
-  function getCityCode(name) {
-    const map = { Kathmandu:'KTM', Pokhara:'PKR', Biratnagar:'BIR', Nepalgunj:'KEP', Dhangadhi:'DHI' };
-    return map[name] || '';
-  }
-
-  // ---------- MODAL ----------
-  function openModal() {
-    document.getElementById('modalOverlay').classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeModal() {
-    document.getElementById('modalOverlay').classList.remove('open');
-    document.body.style.overflow = '';
-  }
-
-  function handleOverlayClick(e) {
-    if (e.target === document.getElementById('modalOverlay')) closeModal();
-  }
-
+  function openModal()  { document.getElementById('modalOverlay').classList.add('open'); document.body.style.overflow='hidden'; }
+  function closeModal() { document.getElementById('modalOverlay').classList.remove('open'); document.body.style.overflow=''; }
+  function handleOverlayClick(e) { if (e.target===document.getElementById('modalOverlay')) closeModal(); }
   function handleSignIn() {
-    const email = document.getElementById('modalEmail').value.trim();
-    const pass = document.getElementById('modalPassword').value;
-    if (!email || !pass) {
-      showToast('⚠️ Please fill in all fields.');
-      return;
-    }
-    closeModal();
-    showToast('👋 Welcome to Eastern AirLinks! (Demo mode)');
+    const e = document.getElementById('modalEmail').value.trim();
+    const p = document.getElementById('modalPassword').value;
+    if (!e||!p) { showToast('⚠️ Please fill in all fields.'); return; }
+    closeModal(); showToast('👋 Welcome to Eastern AirLinks! (Demo mode)');
   }
 
-  // ---------- TOAST ----------
   let toastTimer;
   function showToast(msg) {
-    const toast = document.getElementById('toast');
+    const t = document.getElementById('toast');
     document.getElementById('toastMsg').textContent = msg;
-    toast.classList.add('show');
+    t.classList.add('show');
     clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => toast.classList.remove('show'), 3500);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 3500);
   }
 
-  // ---------- SCROLL REVEAL ----------
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        revealObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12 });
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, {threshold: 0.12});
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-
-  // ---------- NAVBAR SCROLL EFFECT ----------
   window.addEventListener('scroll', () => {
     const nav = document.getElementById('navbar');
-    if (window.scrollY > 60) {
-      nav.style.background = 'rgba(17,29,79,0.99)';
-      nav.style.boxShadow = '0 2px 20px rgba(0,0,0,0.3)';
-    } else {
-      nav.style.background = 'rgba(17,29,79,0.96)';
-      nav.style.boxShadow = 'none';
-    }
+    nav.style.background = window.scrollY > 60 ? 'rgba(17,29,79,0.99)' : 'rgba(17,29,79,0.96)';
+    nav.style.boxShadow  = window.scrollY > 60 ? '0 2px 20px rgba(0,0,0,0.3)' : 'none';
   });
 
-  // ---------- KEYBOARD: ESC closes modal ----------
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeModal();
-  });
+  document.addEventListener('keydown', e => { if (e.key==='Escape') closeModal(); });
 </script>
 </body>
 </html>
