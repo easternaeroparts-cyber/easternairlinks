@@ -44,11 +44,17 @@
     .nav-dropdown > a::after { content: ' ▾'; font-size: 0.65rem; }
     .dropdown-menu {
       display: none; position: absolute; top: 100%; left: 0;
-      background: var(--navy-dark); border-radius: 8px; padding: 0.5rem 0;
-      min-width: 150px; box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-      margin-top: 0.5rem;
+      background: var(--navy-dark); border-radius: 8px;
+      padding: 0.6rem 0 0.5rem; min-width: 150px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      margin-top: 0;
     }
-    .nav-dropdown:hover .dropdown-menu { display: block; }
+    /* invisible bridge fills the gap so mouse doesn't lose hover */
+    .dropdown-menu::before {
+      content: ''; position: absolute; top: -12px; left: 0;
+      width: 100%; height: 12px;
+    }
+    .dropdown-menu.open { display: block; }
     .dropdown-menu a { display: block; padding: 0.55rem 1.2rem; font-size: 0.82rem; color: rgba(255,255,255,0.75); white-space: nowrap; }
     .dropdown-menu a:hover { background: rgba(255,255,255,0.08); color: #fff; }
 
@@ -643,6 +649,29 @@
   });
 
   document.addEventListener('keydown', e => { if (e.key==='Escape') closeModal(); });
+
+  // Dropdown — stays open while mouse moves to it
+  document.querySelectorAll('.nav-dropdown').forEach(function(dropdown) {
+    var menu = dropdown.querySelector('.dropdown-menu');
+    var timer;
+    dropdown.addEventListener('mouseenter', function() {
+      clearTimeout(timer);
+      menu.classList.add('open');
+    });
+    dropdown.addEventListener('mouseleave', function() {
+      timer = setTimeout(function() {
+        menu.classList.remove('open');
+      }, 100);
+    });
+    menu.addEventListener('mouseenter', function() {
+      clearTimeout(timer);
+    });
+    menu.addEventListener('mouseleave', function() {
+      timer = setTimeout(function() {
+        menu.classList.remove('open');
+      }, 100);
+    });
+  });
 </script>
 </body>
 </html>
